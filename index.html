@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Angela E. Avila | Developer Portfolio</title>
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<!-- Google Fonts for a modern look -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* Reset and base styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #0f0f0f;
+    color: #eee;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Badass color palette with gradients and neon accents */
+  :root {
+    --primary: #00ffe1; /* neon cyan */
+    --secondary: #ff00f7; /* neon magenta */
+    --accent: #fffc00; /* yellow accent */
+    --dark-bg: #111;
+    --light: #222;
+    --neon-glow: #00ffe1;
+  }
+
+  /* Intro overlay with animated effect - made fully responsive */
+  .intro-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #ff00f7, #00ffe1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 8vw; /* Responsive font size */
+    padding: 2vw; /* Padding for small screens */
+    color: #fff;
+    z-index: 9999;
+    text-align: center;
+    line-height: 1.2;
+    box-sizing: border-box;
+  }
+
+  @media(max-width: 600px){
+    .intro-overlay {
+      font-size: 12vw; /* Larger font on very small screens for better visibility */
+    }
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+  }
+
+  /* Header styles with hamburger on far left */
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(17, 17, 17, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    z-index: 999;
+    border-bottom: 1px solid var(--primary);
+  }
+
+  /* Hamburger menu on left */
+  .menu-icon {
+    display: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #eee;
+    order: 1;
+  }
+
+  /* Logo next to hamburger */
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+    order: 2;
+  }
+
+  /* Navigation links for desktop on right */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    order: 3;
+  }
+
+  .nav-links li {
+    margin-left: 25px;
+  }
+
+  .nav-links a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .nav-links a:hover {
+    background: var(--primary);
+    color: #111;
+    box-shadow: 0 0 15px var(--primary);
+  }
+
+  /* Sidebar styles for mobile */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #222; /* improved color to match theme */
+    padding-top: 80px;
+    transition: left 0.3s ease;
+    z-index: 10000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .sidebar.show {
+    left: 0;
+  }
+
+  .sidebar-links {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar-links li {
+    margin: 20px 0;
+  }
+
+  .sidebar-links a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-links a:hover {
+    background: var(--primary);
+    color: #111;
+    padding-left: 30px;
+  }
+
+  /* Hero section with bold gradient background and animated text */
+  .hero {
+    padding: 150px 20px 80px;
+    background: linear-gradient(135deg, #ff00f7, #00ffe1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-glow); }
+    50% { text-shadow: 0 0 20px var(--neon-glow), 0 0 40px var(--neon-glow); }
+  }
+
+  p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 10px auto 30px;
+  }
+
+  .btn {
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #ff00f7, #00ffe1);
+    color: #111;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--neon-glow), inset 0 0 10px #fff;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--neon-glow), inset 0 0 15px #fff;
+  }
+
+  /* Sections styling with neon borders and animated appearance */
+  section {
+    padding: 80px 20px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+  }
+
+  section.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .section-title h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    color: var(--primary);
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff00f7, #00ffe1);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+
+  /* About & Content styles */
+  .about-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-img {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px; /* Reduced max width */
+    border-radius: 20px;
+    overflow: hidden;
+    border: 3px solid var(--primary);
+    box-shadow: 0 0 20px rgba(0,255,225,0.5);
+    animation: pulseBorder 2s infinite alternate;
+    margin: 0 auto; /* Center the image */
+  }
+
+  @keyframes pulseBorder {
+    0% { box-shadow: 0 0 20px rgba(0,255,225,0.5); }
+    100% { box-shadow: 0 0 40px rgba(0,255,225,1); }
+  }
+
+  .about-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .about-text {
+    flex: 2;
+    color: #eee;
+  }
+
+  .about-text h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+  }
+
+  .info-list {
+    list-style: none;
+    margin-top: 30px;
+  }
+
+  .info-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .info-list i {
+    margin-right: 15px;
+    font-size: 1.3rem;
+    color: var(--primary);
+    text-shadow: 0 0 8px var(--primary);
+  }
+
+  /* Skills styles with icons and hover effects */
+  .skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .skill-card {
+    background: #222;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    box-shadow: 0 0 20px rgba(0,255,225,0.2);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .skill-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 40px var(--primary);
+    transform: translateY(-10px);
+  }
+
+  .skill-card i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+  }
+
+  /* Projects styles with neon hover effects */
+  .projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .project-card {
+    background: #111;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,255,225,0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+
+  .project-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 40px var(--primary);
+    transform: translateY(-10px);
+  }
+
+  .project-img {
+    height: 200px;
+    background: linear-gradient(135deg, #ff00f7, #00ffe1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: #fff;
+  }
+
+  .project-content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .project-content h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+
+  .project-content p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 15px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .tag {
+    background: linear-gradient(45deg, #ff00f7, #00ffe1);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #111;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  }
+
+  /* Contact styles with neon accents */
+  .contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .contact-info, .contact-form {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .contact-item i {
+    background: var(--primary);
+    box-shadow: 0 0 15px var(--primary);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 20px;
+    transition: all 0.3s ease;
+  }
+
+  /* Footer with neon glow */
+  footer {
+    background-color: #000;
+    padding: 50px 20px 20px;
+    border-top: 2px solid var(--primary);
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 30px;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .social-links a {
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 0 0 10px var(--primary);
+    transition: all 0.3s ease;
+  }
+
+  .social-links a:hover {
+    transform: scale(1.2);
+    color: var(--primary);
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Certificates Styles */
+  .certificates-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .certificate-card {
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,255,225,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .certificate-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  /* Responsive tweaks for certificates */
+  @media(max-width: 768px){
+    header { 
+      flex-direction: row; 
+      justify-content: space-between;
+      align-items: center; 
+      padding: 15px 20px;
+    }
+    
+    .nav-links { display: none; }
+    
+    .about-content { flex-direction: column; }
+    
+    .footer-content { flex-direction: column; }
+    
+    .hero h1 { font-size: 2.5rem; }
+    
+    .section-title h2 { font-size: 2rem; }
+    
+    .btn { padding: 12px 25px; font-size: 1rem; }
+    
+    .certificate-card h3 { font-size: 1rem; }
+    
+    /* Show menu icon on mobile */
+    .menu-icon {
+      display: block;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+    }
+    
+    /* Further reduce image size on mobile */
+    .about-img {
+      max-width: 250px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Intro overlay with animated glow -->
+<div class="intro-overlay">DEVELOPER PORTFOLIO</div>
+
+<!-- Header with hamburger on far left -->
+<header>
+  <!-- Hamburger menu on far left -->
+  <div class="menu-icon" id="menu-toggle"><i class="fas fa-bars"></i></div>
+  <!-- Logo next to hamburger -->
+  <div class="logo">Angela Avila</div>
+  <!-- Desktop nav links on right -->
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</header>
+
+<!-- Sidebar for mobile -->
+<div class="sidebar" id="sidebar">
+  <ul class="sidebar-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <h1>Angela E. Avila</h1>
+  <p>Full-Stack Developer | php, MySql, html, Modern UI</p>
+  <p>Creator of the Vaccination Management System in Santa Rita Pampanga — Making Impact with Code</p>
+  <a href="#projects" class="btn">View My Work</a>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-title">
+    <h2>About Me</h2>
+  </div>
+  <div class="about-content">
+    <div class="about-img">
+      <img src="hi.jpg" alt="Angela E. Avila" />
+    </div>
+    <div class="about-text">
+      <h3>Hello! I'm Angela E. Avila</h3>
+      <p>Passionate developer dedicated to crafting sleek, powerful web applications. Skilled in front-end, back-end, and database design. My signature project is the Vaccination Management System that helps my community.</p>
+      <ul class="info-list">
+        <li><i class="fas fa-user-graduate"></i> 4th Year Info Systems Student</li>
+        <li><i class="fas fa-code"></i> Full-Stack Dev</li>
+        <li><i class="fas fa-map-marker-alt"></i> Santa Rita Pampanga, Philippines</li>
+        <li><i class="fas fa-envelope"></i> enriquezangela939@gmail.com</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-title">
+    <h2>My Skills</h2>
+  </div>
+  <div class="skills-container">
+    <div class="skill-card">
+      <i class="fas fa-laptop-code"></i>
+      <h3>Front-End</h3>
+      <p> HTML, CSS, JavaScript for beautiful UIs</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-server"></i>
+      <h3>Back-End</h3>
+      <p>PHP, API Development</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-database"></i>
+      <h3>Database</h3>
+      <p>MySQL</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-mobile-alt"></i>
+      <h3>Responsive Design</h3>
+      <p>Mobile-friendly, cross-browser, seamless UX</p>
+    </div>
+  </div>
+</section>
+
+<!-- Learning Certificates -->
+<section id="certificates">
+  <div class="section-title">
+    <h2>My Learning Certificates</h2>
+  </div>
+  <div class="certificates-container">
+    <!-- Replace src with your actual certificate images or links -->
+    <div class="certificate-card">
+      <img src="Certificate 2.png" alt="Certificate 1" />
+    </div>
+    <div class="certificate-card">
+      <img src="cLOUD.png" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="CYBER SECURITY.png" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="DATA ANALYTICS ESSENTIALS.png" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="DATA SCIENCE.png" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="ENGAGING STAKEHOLDERS.png" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="ENGLISH FOR IT 1.png" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="ENGLISH FOR IT 2.png" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="IRCITE.jpg" alt="Certificate 2" />
+    </div>
+    <div class="certificate-card">
+      <img src="JUNIOR CYBER SECURITY.png" alt="Certificate 2" />
+    </div>
+  </div>
+  <div class="certificate-card">
+      <img src="24.png" alt="Certificate 2" />
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-title">
+    <h2>My Projects</h2>
+  </div>
+  <div class="projects-container">
+    <div class="project-card">
+      <div class="project-img">
+        <i class="fas fa-syringe"></i>
+      </div>
+      <div class="project-content">
+        <h3>Vaccination Management System</h3>
+        <p>A powerful system to streamline vaccination scheduling, records, and reporting for our city. Impactful and efficient.</p>
+        <div class="project-tags">
+          <span class="tag">Full-Stack</span>
+          <span class="tag">Database</span>
+          <span class="tag">Web App</span>
+        </div>
+        <a href="vaccination-system.html" class="btn">View Details</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-title">
+    <h2>Contact Me</h2>
+  </div>
+  <div class="contact-container">
+    <div class="contact-info">
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <h3>Location</h3>
+          <p>Santa Rita Pampanga, Philippines</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <div>
+          <h3>Email</h3>
+          <p>enriquezangela939@gmail.com</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <div>
+          <h3>Phone</h3>
+          <p>+63 962 376 2206</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="logo">Angela E. Avila</div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2023 Angela E. Avila. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){
+        window.scrollTo({ top: target.offsetTop - 60, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Animate sections on scroll
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(sec => observer.observe(sec));
+
+  // Remove intro overlay after delay
+  window.addEventListener('load', () => {
+    const overlay = document.querySelector('.intro-overlay');
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      overlay.style.visibility = 'hidden';
+    }, 2000);
+  });
+
+  // Sidebar toggle script
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('show');
+  });
+
+  // Close sidebar when clicking on a link
+  document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+    });
+  });
+</script>
+
+</body>
+</html>
